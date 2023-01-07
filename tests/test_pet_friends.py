@@ -167,3 +167,12 @@ def test_response_json():
     res = requests.get('https://petfriends.skillfactory.ru/api/key', headers=headers)
 
     assert res.headers['Content-Type'] == "application/json"
+    
+def test_get_all_pets_with_nt_valid_pets(filter='my_pets'):
+    """ Проверяем запрос несуществующего питомца"""
+    name = 'Мявкин'
+    _, auth_key = pf.get_api_key(valid_email, valid_password)
+    status, result = pf.get_list_of_pets(auth_key, filter)
+    #print(result)
+    assert status == 200
+    assert name not in result.values()
