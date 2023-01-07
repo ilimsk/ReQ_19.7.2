@@ -150,7 +150,7 @@ def test_request_page_404():
     assert status == 404
 
 def test_get_all_pets_with_not_valid_key(filter='my_pets'):
-    """ Проверяем что запрос всех питомцев ля невалидного api ключа.Результат - доступ запрещен """
+    """ Проверяем что запрос всех питомцев для невалидного api ключа.Результат - доступ запрещен """
 
     #_, auth_key = pf.get_api_key(valid_email, valid_password)
     #print(auth_key)
@@ -158,3 +158,12 @@ def test_get_all_pets_with_not_valid_key(filter='my_pets'):
 
     assert status == 403
 
+def test_response_json():
+    """ Проверяем что ответ приходит в формате json """
+    headers = {
+        'email': 'ilimsk2000@mail.ru',
+        'password': '123123',
+    }
+    res = requests.get('https://petfriends.skillfactory.ru/api/key', headers=headers)
+
+    assert res.headers['Content-Type'] == "application/json"
